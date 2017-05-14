@@ -22,9 +22,9 @@ CustomRenderTexture:
     m_FilterMode: 2
     m_Aniso: 8
     m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
   m_Dimension: 2
   m_VolumeDepth: 1
   m_Material: {fileID: 2100000, guid: 23c3dea64387b6f42b7feabf76c537af, type: 2}

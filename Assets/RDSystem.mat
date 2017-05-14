@@ -63,12 +63,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Du: 0.929
-    - _Dv: 0.423
-    - _Feed: 0.0477
+    - _Dv: 0.35
+    - _Feed: 0.0511
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Kill: 0.0609
+    - _Kill: 0.062
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
