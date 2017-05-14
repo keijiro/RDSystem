@@ -1,4 +1,4 @@
-﻿Shader "RDSurface"
+﻿Shader "RDSystem/Surface"
 {
     Properties
     {

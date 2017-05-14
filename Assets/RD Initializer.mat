@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: RDSystem
-  m_Shader: {fileID: 4800000, guid: 5c82db02c4beca94789b02c27c2b28a6, type: 3}
+  m_Name: RD Initializer
+  m_Shader: {fileID: 4800000, guid: 8e6884ba2213d764ba5855ca1958370e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -73,7 +73,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Seed: 0
+    - _Seed: 0.158
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
