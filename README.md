@@ -4,7 +4,7 @@ RDSystem
 ![screenshot](http://i.imgur.com/TSQyxMAl.png)
 
 **RDSystem** is an example showing use of CustomRenderTexture (CustomTexture),
-which is one of the new features of Unity 2017.01.
+which is one of the new features of Unity 2017.1.
 
 ![gif](http://i.imgur.com/pGdCErA.gif)
 ![gif](http://i.imgur.com/Ai3wB8l.gif)
