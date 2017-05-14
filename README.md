@@ -12,9 +12,9 @@ which is one of the new features of Unity 2017.01.
 System Requirements
 -------------------
 
-- Unity 2017.01
+- Unity 2017.1
 
-Note that Unity 2017.01 is still under beta testing at the moment of writing.
+Note that Unity 2017.1 is still under beta testing at the moment of writing.
 The specification could be changed in the final release version.
 
 Acknowledgement
