@@ -28,12 +28,12 @@ CustomRenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_Material: {fileID: 2100000, guid: 23c3dea64387b6f42b7feabf76c537af, type: 2}
-  m_InitSource: 1
-  m_InitMaterial: {fileID: 2100000, guid: 23c3dea64387b6f42b7feabf76c537af, type: 2}
-  m_InitColor: {r: 1, g: 1, b: 1, a: 1}
+  m_InitSource: 0
+  m_InitMaterial: {fileID: 0}
+  m_InitColor: {r: 1, g: 0, b: 0, a: 1}
   m_InitTexture: {fileID: 0}
   m_UpdateMode: 2
-  m_InitializationMode: 2
+  m_InitializationMode: 0
   m_UpdateZoneSpace: 0
   m_CurrentUpdateZoneSpace: 0
   m_UpdateZones: []
