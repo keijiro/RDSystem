@@ -29,7 +29,7 @@ Shader "RDSystem/RDSystem"
     half _Feed, _Kill;
 
     // Pass 0: Init
-    half4 fragInit(v2f_init_customrendertexture i) : SV_Target
+    half4 fragInit(InitCustomRenderTextureVaryings i) : SV_Target
     {
         uint x = i.texcoord.x * _CustomRenderTextureWidth;
         uint y = i.texcoord.y * _CustomRenderTextureHeight;
@@ -38,7 +38,7 @@ Shader "RDSystem/RDSystem"
     }
 
     // Pass 1: Update
-    half4 fragUpdate(v2f_customrendertexture i) : SV_Target
+    half4 fragUpdate(CustomRenderTextureVaryings i) : SV_Target
     {
         float tw = 1 / _CustomRenderTextureWidth;
         float th = 1 / _CustomRenderTextureHeight;

@@ -10,15 +10,15 @@
 #define kCustomTextureBatchSize 16
 #define customTextureVertexNum 6
 
-struct appdata_customrendertexture
+struct CustomRenderTextureAttributes
 {
     uint vertexID : SV_VertexID;
 };
 
 // User facing vertex to fragment shader structure
-struct v2f_customrendertexture
+struct CustomRenderTextureVaryings
 {
-    float4 vertex           : SV_POSITION;
+    float4 positionCS       : SV_POSITION;
     float3 localTexcoord    : TEXCOORD0;    // Texcoord local to the update zone (== globalTexcoord if no partial update zone is specified)
     float3 globalTexcoord   : TEXCOORD1;    // Texcoord relative to the complete custom texture
     uint primitiveID        : TEXCOORD2;    // Index of the update zone (correspond to the index in the updateZones of the Custom Texture)
@@ -97,9 +97,9 @@ float3 CustomRenderTextureComputeCubeDirection(float2 globalTexcoord)
 }
 
 // standard custom texture vertex shader that should always be used
-v2f_customrendertexture CustomRenderTextureVertexShader(appdata_customrendertexture IN)
+CustomRenderTextureVaryings CustomRenderTextureVertexShader(CustomRenderTextureAttributes IN)
 {
-    v2f_customrendertexture OUT;
+    CustomRenderTextureVaryings OUT;
     
 #if UNITY_UV_STARTS_AT_TOP
     const float2 vertexPositions[customTextureVertexNum] =
@@ -189,7 +189,7 @@ v2f_customrendertexture CustomRenderTextureVertexShader(appdata_customrendertext
         }
     }
     
-    OUT.vertex = float4(pos, UNITY_NEAR_CLIP_VALUE, 1.0);
+    OUT.positionCS = float4(pos, UNITY_NEAR_CLIP_VALUE, 1.0);
     OUT.primitiveID = asuint(CustomRenderTexturePrimitiveIDs[primitiveID]);
     OUT.localTexcoord = float3(texCoords[vertexID], CustomRenderTexture3DTexcoordW);
     OUT.globalTexcoord = float3(pos.xy * 0.5 + 0.5, CustomRenderTexture3DTexcoordW);
@@ -201,31 +201,31 @@ v2f_customrendertexture CustomRenderTextureVertexShader(appdata_customrendertext
     return OUT;
 }
 
-struct appdata_init_customrendertexture
+struct InitCustomRenderTextureAttributes
 {
     float4 vertex : POSITION;
     float2 texcoord : TEXCOORD0;
 };
 
 // User facing vertex to fragment structure for initialization materials
-struct v2f_init_customrendertexture
+struct InitCustomRenderTextureVaryings
 {
-    float4 vertex : SV_POSITION;
+    float4 positionCS : SV_POSITION;
     float3 texcoord : TEXCOORD0;
     float3 direction : TEXCOORD1;
 };
 
 // standard custom texture vertex shader that should always be used for initialization shaders
-v2f_init_customrendertexture InitCustomRenderTextureVertexShader(appdata_init_customrendertexture v)
+InitCustomRenderTextureVaryings InitCustomRenderTextureVertexShader(InitCustomRenderTextureAttributes v)
 {
-    v2f_init_customrendertexture o;
+    InitCustomRenderTextureVaryings o;
     
     // For initialization pass, we use a simple fullscreen triangle
     // The input vertex and texcoord are expected to be set up for a fullscreen quad
-    o.vertex = float4(v.texcoord.xy * 2.0 - 1.0, UNITY_NEAR_CLIP_VALUE, 1.0);
+    o.positionCS = float4(v.texcoord.xy * 2.0 - 1.0, UNITY_NEAR_CLIP_VALUE, 1.0);
     
 #if UNITY_UV_STARTS_AT_TOP
-    o.vertex.y = -o.vertex.y;
+    o.positionCS.y = -o.positionCS.y;
 #endif
     
     o.texcoord = float3(v.texcoord.xy, CustomRenderTexture3DTexcoordW);
