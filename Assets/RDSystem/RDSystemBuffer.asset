@@ -37,9 +37,9 @@ CustomRenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
-  m_Material: {fileID: 2100000, guid: b537cbf148ee14d0185916fc11fa531c, type: 2}
+  m_Material: {fileID: 2100000, guid: 2958f25dea4c84e3bbca48f6577880af, type: 2}
   m_InitSource: 1
-  m_InitMaterial: {fileID: 2100000, guid: 61473caa5cc704421bdd9c7566d3b0a5, type: 2}
+  m_InitMaterial: {fileID: 2100000, guid: 2958f25dea4c84e3bbca48f6577880af, type: 2}
   m_InitColor: {r: 1, g: 1, b: 1, a: 1}
   m_InitTexture: {fileID: 0}
   m_UpdateMode: 2
@@ -48,7 +48,7 @@ CustomRenderTexture:
   m_CurrentUpdateZoneSpace: 0
   m_UpdateZones: []
   m_UpdatePeriod: 0.0020833334
-  m_ShaderPass: 0
+  m_ShaderPass: 1
   m_CubemapFaceMask: 4294967295
   m_DoubleBuffered: 1
   m_WrapUpdateZones: 0

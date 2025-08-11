@@ -1,7 +1,14 @@
-﻿Shader "RDSystem/Update"
+Shader "RDSystem/RDSystem"
 {
     Properties
     {
+        [Header(Initialization), Space]
+        [Space]
+        _Pop("Population", Range(0, 1)) = 0.1
+        _Seed("Random Seed", Integer) = 1234
+        
+        [Header(Reaction Diffusion)]
+        [Space]
         _Du("Diffusion (u)", Range(0, 1)) = 1
         _Dv("Diffusion (v)", Range(0, 1)) = 0.4
         _Feed("Feed", Range(0, 0.1)) = 0.05
@@ -11,11 +18,27 @@
     HLSLINCLUDE
 
     #include "CustomRenderTexture.hlsl"
+    #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Random.hlsl"
 
+    // Initialization parameters
+    float _Pop;
+    uint _Seed;
+    
+    // Update parameters
     half _Du, _Dv;
     half _Feed, _Kill;
 
-    half4 frag(v2f_customrendertexture i) : SV_Target
+    // Pass 0: Init
+    half4 fragInit(v2f_init_customrendertexture i) : SV_Target
+    {
+        uint x = i.texcoord.x * _CustomRenderTextureWidth;
+        uint y = i.texcoord.y * _CustomRenderTextureHeight;
+        float rnd = GenerateHashedRandomFloat(uint3(x, y, _Seed));
+        return half4(1, rnd < _Pop * _Pop * 0.01, 0, 0);
+    }
+
+    // Pass 1: Update
+    half4 fragUpdate(v2f_customrendertexture i) : SV_Target
     {
         float tw = 1 / _CustomRenderTextureWidth;
         float th = 1 / _CustomRenderTextureHeight;
@@ -48,12 +71,24 @@
     SubShader
     {
         Cull Off ZWrite Off ZTest Always
+        
+        // Pass 0: Init
+        Pass
+        {
+            Name "Init"
+            HLSLPROGRAM
+            #pragma vertex InitCustomRenderTextureVertexShader
+            #pragma fragment fragInit
+            ENDHLSL
+        }
+        
+        // Pass 1: Update
         Pass
         {
             Name "Update"
             HLSLPROGRAM
             #pragma vertex CustomRenderTextureVertexShader
-            #pragma fragment frag
+            #pragma fragment fragUpdate
             ENDHLSL
         }
     }
