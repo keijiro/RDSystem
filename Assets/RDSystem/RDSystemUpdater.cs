@@ -4,7 +4,7 @@ namespace RDSystem {
 
 public sealed class RDSystemUpdater : MonoBehaviour
 {
-    [SerializeField] CustomRenderTexture _texture;
+    [SerializeField] CustomRenderTexture _texture = null;
     [SerializeField, Range(1, 16)] int _stepsPerFrame = 4;
 
     void Start()
