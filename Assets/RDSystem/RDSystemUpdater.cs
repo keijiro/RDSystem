@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 
-namespace RDSystem
+namespace RDSystem {
+
+public sealed class RDSystemUpdater : MonoBehaviour
 {
-    public class RDSystemUpdater : MonoBehaviour
-    {
-        [SerializeField] CustomRenderTexture _texture;
-        [SerializeField, Range(1, 16)] int _stepsPerFrame = 4;
+    [SerializeField] CustomRenderTexture _texture;
+    [SerializeField, Range(1, 16)] int _stepsPerFrame = 4;
 
-        void Start()
-        {
-            _texture.Initialize();
-        }
+    void Start()
+      => _texture.Initialize();
 
-        void Update()
-        {
-            _texture.Update(_stepsPerFrame);
-        }
-    }
+    void Update()
+      => _texture.Update(_stepsPerFrame);
 }
+
+} // namespace RDSystem

@@ -44,17 +44,6 @@
     }
 
     ENDCG
-        /*
-
-
-
-    half4 frag(v2f_customrendertexture i) : SV_Target
-    {
-        return 0;
-    }
-
-    EDNCG
-        */
 
     SubShader
     {
