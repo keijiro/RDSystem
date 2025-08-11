@@ -2,27 +2,27 @@ Shader "RDSystem/Initialization"
 {
     Properties
     {
-        _Seed("Seeding", Range(0, 1)) = 0
+        _Pop("Population", Range(0, 1)) = 0.1
+        _Seed("Random Seed", Integer) = 1234
     }
 
-    CGINCLUDE
+    HLSLINCLUDE
 
-    #include "UnityCustomRenderTexture.cginc"
+    #include "CustomRenderTexture.hlsl"
+    #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Random.hlsl"
 
-    half _Seed;
-
-    float UVRandom(float2 uv)
-    {
-        return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
-    }
+    float _Pop;
+    uint _Seed;
 
     half4 frag(v2f_init_customrendertexture i) : SV_Target
     {
-        float rnd = UVRandom(i.texcoord) + UVRandom(i.texcoord + 1);
-        return half4(1, step(rnd, _Seed * 0.1), 0, 0);
+        uint x = i.texcoord.x * _CustomRenderTextureWidth;
+        uint y = i.texcoord.y * _CustomRenderTextureHeight;
+        float rnd = GenerateHashedRandomFloat(uint3(x, y, _Seed));
+        return half4(1, rnd < _Pop * _Pop * 0.01, 0, 0);
     }
 
-    ENDCG
+    ENDHLSL
 
     SubShader
     {
@@ -30,10 +30,10 @@ Shader "RDSystem/Initialization"
         Pass
         {
             Name "Init"
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex InitCustomRenderTextureVertexShader
             #pragma fragment frag
-            ENDCG
+            ENDHLSL
         }
     }
 }

@@ -8,9 +8,9 @@
         _Kill("Kill", Range(0, 0.1)) = 0.05
     }
 
-    CGINCLUDE
+    HLSLINCLUDE
 
-    #include "UnityCustomRenderTexture.cginc"
+    #include "CustomRenderTexture.hlsl"
 
     half _Du, _Dv;
     half _Feed, _Kill;
@@ -20,20 +20,20 @@
         float tw = 1 / _CustomRenderTextureWidth;
         float th = 1 / _CustomRenderTextureHeight;
 
-        float2 uv = i.globalTexcoord;
+        float2 uv = i.globalTexcoord.xy;
         float4 duv = float4(tw, th, -tw, 0);
 
-        half2 q = tex2D(_SelfTexture2D, uv).xy;
+        half2 q = SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv).xy;
 
         half2 dq = -q;
-        dq += tex2D(_SelfTexture2D, uv - duv.xy).xy * 0.05;
-        dq += tex2D(_SelfTexture2D, uv - duv.wy).xy * 0.20;
-        dq += tex2D(_SelfTexture2D, uv - duv.zy).xy * 0.05;
-        dq += tex2D(_SelfTexture2D, uv + duv.zw).xy * 0.20;
-        dq += tex2D(_SelfTexture2D, uv + duv.xw).xy * 0.20;
-        dq += tex2D(_SelfTexture2D, uv + duv.zy).xy * 0.05;
-        dq += tex2D(_SelfTexture2D, uv + duv.wy).xy * 0.20;
-        dq += tex2D(_SelfTexture2D, uv + duv.xy).xy * 0.05;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv - duv.xy).xy * 0.05;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv - duv.wy).xy * 0.20;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv - duv.zy).xy * 0.05;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv + duv.zw).xy * 0.20;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv + duv.xw).xy * 0.20;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv + duv.zy).xy * 0.05;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv + duv.wy).xy * 0.20;
+        dq += SAMPLE_TEXTURE2D(_SelfTexture2D, sampler_SelfTexture2D, uv + duv.xy).xy * 0.05;
 
         half ABB = q.x * q.y * q.y;
 
@@ -43,7 +43,7 @@
         return half4(saturate(q), 0, 0);
     }
 
-    ENDCG
+    ENDHLSL
 
     SubShader
     {
@@ -51,10 +51,10 @@
         Pass
         {
             Name "Update"
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex CustomRenderTextureVertexShader
             #pragma fragment frag
-            ENDCG
+            ENDHLSL
         }
     }
 }
